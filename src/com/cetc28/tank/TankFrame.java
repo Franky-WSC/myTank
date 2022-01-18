@@ -14,12 +14,16 @@ import java.util.function.BiFunction;
  * @version: 1.0
  */
 public class TankFrame extends Frame {
-    Tank myTank1 = new Tank(200,200,Dir.DOWN);
-    Bullet bullet = new Bullet(300,300,Dir.DOWN);
+    //主战坦克
+    Tank myTank1 = new Tank(200,200,Dir.DOWN, this);
+    //子弹
+    Bullet bullet;
+    //屏幕宽度 高度
+    static final int GAME_WIDTH = 1000, GAME_HEIGHT = 800;
 
     //构造函数
     public TankFrame() throws HeadlessException {
-        setSize(1000,800);
+        setSize(GAME_WIDTH,GAME_HEIGHT);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -79,6 +83,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    myTank1.fire();
                     break;
                 default:
                     break;
