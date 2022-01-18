@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.BiFunction;
 
 /**
  * @Auther: WSC
@@ -24,12 +25,13 @@ public class TankFrame extends Frame {
         setVisible(true);
         //添加一个window事件监听器
         addWindowListener(new WindowAdapter() {
+            //当接收到一个windowClosing事件时, 调用这个函数
             @Override
             public void windowClosing(WindowEvent e) {
-                //当接收到一个windowClosing事件时, 调用这个函数
                 System.exit(0);
             }
         });
+        //添加一个Key事件监听器
         addKeyListener(new MyKeyListener());
     }
     //内部类
@@ -39,7 +41,7 @@ public class TankFrame extends Frame {
         boolean bR = false;
         boolean bU = false;
         boolean bD = false;
-
+        //当键盘按键被按下时的操作
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();//取出按键代码
@@ -61,6 +63,7 @@ public class TankFrame extends Frame {
             }
             setMainTankDir();
         }
+        //当键盘按键被松开时的操作
         @Override
         public void keyReleased(KeyEvent e) {
             int key = e.getKeyCode();//取出按键代码
@@ -82,12 +85,17 @@ public class TankFrame extends Frame {
             }
             setMainTankDir();
         }
-
+        //设置主站坦克的运行方向
         private void setMainTankDir() {
-            if(bL) myTank1.setDir(Dir.LEFT);
-            if(bR) myTank1.setDir(Dir.RIGHT);
-            if(bU) myTank1.setDir(Dir.UP);
-            if(bD) myTank1.setDir(Dir.DOWN);
+            if(!bL && !bR && !bU && !bD){
+                myTank1.setbMoving(false);
+            }else{
+                myTank1.setbMoving(true);
+                if(bL) myTank1.setDir(Dir.LEFT);
+                if(bR) myTank1.setDir(Dir.RIGHT);
+                if(bU) myTank1.setDir(Dir.UP);
+                if(bD) myTank1.setDir(Dir.DOWN);
+            }
         }
     }
     @Override
