@@ -11,7 +11,7 @@ import java.awt.*;
 public class Tank {
     private int x,y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 10;
+    private static final int SPEED = 5;
     private boolean bMoving = false;
 
     public Tank(int x, int y, Dir dir) {
@@ -41,7 +41,7 @@ public class Tank {
     }
 
     public void paint(Graphics g){
-        g.fillRect(x,y,100,100);
+        g.fillRect(x,y,50,50);
         move();
     }
 

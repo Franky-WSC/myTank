@@ -16,7 +16,7 @@ public class Main {
         Frame tf = new TankFrame();
         while (true){
             try {
-                Thread.sleep(25);
+                Thread.sleep(50);
                 tf.repaint();
             } catch (InterruptedException e) {
                 e.printStackTrace();

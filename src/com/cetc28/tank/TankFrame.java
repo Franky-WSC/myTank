@@ -14,12 +14,12 @@ import java.util.function.BiFunction;
  * @version: 1.0
  */
 public class TankFrame extends Frame {
-
     Tank myTank1 = new Tank(200,200,Dir.DOWN);
+    Bullet bullet = new Bullet(300,300,Dir.DOWN);
 
     //构造函数
     public TankFrame() throws HeadlessException {
-        setSize(800,600);
+        setSize(1000,800);
         setResizable(false);
         setTitle("tank war");
         setVisible(true);
@@ -101,5 +101,6 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         myTank1.paint(g);
+        bullet.paint(g);
     }
 }
