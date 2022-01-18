@@ -42,8 +42,19 @@ public class Tank {
         this.dir = dir;
     }
 
+    public TankFrame getTf() {
+        return tf;
+    }
+
+    public void setTf(TankFrame tf) {
+        this.tf = tf;
+    }
+
     public void paint(Graphics g){
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
         g.fillRect(x,y,50,50);
+        g.setColor(c);
         move();
     }
 
@@ -68,6 +79,6 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullet = new Bullet(this.x,this.y,this.dir);
+        tf.bullets.add(new Bullet(this.x,this.y,this.dir, tf));
     }
 }

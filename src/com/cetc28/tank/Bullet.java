@@ -9,26 +9,40 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Bullet {
-    private static final int SPEED = 2;
+    private static final int SPEED = 10;
     private static final int WIDTH = 20,HEIGHT = 20;
     private int x, y;
     private Dir dir;
+    private boolean bLive = true;
+    private TankFrame tf;
 
-    public Bullet(int x, int y, Dir dir) {
+    public boolean isbLive() {
+        return bLive;
+    }
+
+    public void setbLive(boolean bLive) {
+        this.bLive = bLive;
+    }
+
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public void paint(Graphics g){
-        //Color c = g.getColor();
+        Color c = g.getColor();
         g.setColor(Color.red);
         g.fillOval(x,y,WIDTH,HEIGHT);
-        //g.setColor(c);
+        g.setColor(c);
         move();
     }
 
     private void move(){
+        if(!bLive){
+            tf.bullets.remove(this);
+        }
         switch(dir){
             case LEFT:
                 x -= SPEED;
@@ -42,6 +56,9 @@ public class Bullet {
             case DOWN:
                 y += SPEED;
                 break;
+        }
+        if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT){
+            setbLive(false);
         }
     }
 }
