@@ -13,9 +13,8 @@ import java.awt.event.WindowEvent;
  * @version: 1.0
  */
 public class TankFrame extends Frame {
-    int x = 200, y = 200;
-    Dir dir = Dir.DOWN;
-    private static final int speed = 10;
+
+    Tank myTank1 = new Tank(200,200,Dir.DOWN);
 
     //构造函数
     public TankFrame() throws HeadlessException {
@@ -85,29 +84,14 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if(bL) dir = Dir.LEFT;
-            if(bR) dir = Dir.RIGHT;
-            if(bU) dir = Dir.UP;
-            if(bD) dir = Dir.DOWN;
+            if(bL) myTank1.setDir(Dir.LEFT);
+            if(bR) myTank1.setDir(Dir.RIGHT);
+            if(bU) myTank1.setDir(Dir.UP);
+            if(bD) myTank1.setDir(Dir.DOWN);
         }
     }
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x,y,100,100);
-
-        switch(dir){
-            case LEFT:
-                x -= speed;
-                break;
-            case RIGHT:
-                x += speed;
-                break;
-            case UP:
-                y -= speed;
-                break;
-            case DOWN:
-                y += speed;
-                break;
-        }
+        myTank1.paint(g);
     }
 }
