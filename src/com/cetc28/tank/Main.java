@@ -13,7 +13,12 @@ import java.awt.event.WindowEvent;
 public class Main {
     // 这是程序的main函数:入口函数
     public static void main(String[] args) {
-        Frame tf = new TankFrame();
+        TankFrame tf = new TankFrame();
+        //初始化敌方坦克
+        for (int i = 0; i < 5; i++) {
+            tf.tanks.add(new Tank(50+i*100,400,Dir.DOWN,tf));
+        }
+
         while (true){
             try {
                 Thread.sleep(50);

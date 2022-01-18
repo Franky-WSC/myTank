@@ -20,6 +20,8 @@ public class TankFrame extends Frame {
     Tank myTank1 = new Tank(200,200,Dir.DOWN, this);
     //子弹容器
     List<Bullet> bullets = new ArrayList<>();
+    //敌方坦克
+    List<Tank> tanks = new ArrayList<>();
     //屏幕宽度 高度
     static final int GAME_WIDTH = 1000, GAME_HEIGHT = 800;
 
@@ -126,14 +128,27 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        //画当前屏幕中子弹的数量
         Color c = g.getColor();
         g.setColor(Color.YELLOW);
         g.drawString("子弹的数量: " + bullets.size(), 100,100);
+        g.drawString("敌方坦克的数量: " + tanks.size(), 100,120);
         g.setColor(c);
-
+        //画出主战坦克
         myTank1.paint(g);
+        //画出子弹
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
+        }
+        //画出敌方坦克
+        for (int i = 0; i < tanks.size(); i++) {
+            tanks.get(i).paint(g);
+        }
+        //碰撞检测
+        for (int i = 0; i < bullets.size(); i++) {
+            for(int j = 0; j < tanks.size(); j++){
+                bullets.get(i).collideWith(tanks.get(j));
+            }
         }
     }
 }

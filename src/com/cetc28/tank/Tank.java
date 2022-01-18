@@ -11,11 +11,12 @@ import java.awt.*;
 public class Tank {
     private int x,y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 5;
+    private static final int SPEED = 10;
     public static int WIDTH = ResourceMgr.tankL.getWidth();
     public static int HEIGHT = ResourceMgr.tankL.getHeight();
     private boolean bMoving = false;
     private TankFrame tf;
+    private boolean bLiving = true;
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
@@ -40,6 +41,14 @@ public class Tank {
         this.y = y;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public void setDir(Dir dir) {
         this.dir = dir;
     }
@@ -57,6 +66,9 @@ public class Tank {
 //        g.setColor(Color.GREEN);
 //        g.fillRect(x,y,50,50);
 //        g.setColor(c);
+        if(!bLiving){
+            this.tf.tanks.remove(this);
+        }
         switch(dir){
             case LEFT:
                 g.drawImage(ResourceMgr.tankL,x,y,null);
@@ -100,5 +112,9 @@ public class Tank {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bX,bY,this.dir, tf));
+    }
+
+    public void die() {
+        this.bLiving = false;
     }
 }

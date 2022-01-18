@@ -9,7 +9,7 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Bullet {
-    private static final int SPEED = 10;
+    private static final int SPEED = 20;
     public static int WIDTH = ResourceMgr.bulletL.getWidth();
     public static int HEIGHT = ResourceMgr.bulletL.getHeight();
     private int x, y;
@@ -77,5 +77,18 @@ public class Bullet {
         if(x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT){
             setbLive(false);
         }
+    }
+
+    public void collideWith(Tank tank) {
+        Rectangle rect1 = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
+        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH,Tank.HEIGHT);
+        if(rect1.intersects(rect2)){
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        this.bLive = false;
     }
 }
