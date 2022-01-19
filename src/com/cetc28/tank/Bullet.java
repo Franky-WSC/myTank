@@ -16,6 +16,7 @@ public class Bullet {
     private Dir dir;
     private boolean bLive = true;
     private TankFrame tf;
+    private Group group = Group.BAD;
 
     public boolean isbLive() {
         return bLive;
@@ -25,10 +26,19 @@ public class Bullet {
         this.bLive = bLive;
     }
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -80,6 +90,10 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
+        if(this.group == tank.getGroup()){
+            return;
+        }
+        //用一个rect来记录子弹/坦克的位置 : 子弹类和坦克类各自保留一个rect
         Rectangle rect1 = new Rectangle(this.x, this.y, Bullet.WIDTH, Bullet.HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH,Tank.HEIGHT);
         if(rect1.intersects(rect2)){

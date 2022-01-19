@@ -1,6 +1,7 @@
 package com.cetc28.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @Auther: WSC
@@ -11,17 +12,20 @@ import java.awt.*;
 public class Tank {
     private int x,y;
     private Dir dir = Dir.DOWN;
-    private static final int SPEED = 10;
+    private static final int SPEED = 1;
     public static int WIDTH = ResourceMgr.tankL.getWidth();
     public static int HEIGHT = ResourceMgr.tankL.getHeight();
-    private boolean bMoving = false;
+    private boolean bMoving = true;
     private TankFrame tf;
     private boolean bLiving = true;
+    private Random random = new Random();
+    private Group group = Group.BAD;
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -61,11 +65,15 @@ public class Tank {
         this.tf = tf;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public void paint(Graphics g){
-//        Color c = g.getColor();
-//        g.setColor(Color.GREEN);
-//        g.fillRect(x,y,50,50);
-//        g.setColor(c);
         if(!bLiving){
             this.tf.tanks.remove(this);
         }
@@ -106,12 +114,16 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
+        if(random.nextInt(10) > 8){
+            this.fire();
+        }
     }
 
     public void fire() {
         int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX,bY,this.dir, tf));
+        tf.bullets.add(new Bullet(bX,bY,this.dir, this.group, tf));
     }
 
     public void die() {

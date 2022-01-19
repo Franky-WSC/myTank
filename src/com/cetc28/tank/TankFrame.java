@@ -17,7 +17,7 @@ import java.util.function.BiFunction;
  */
 public class TankFrame extends Frame {
     //主战坦克
-    Tank myTank1 = new Tank(200,200,Dir.DOWN, this);
+    Tank myTank1 = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
     //子弹容器
     List<Bullet> bullets = new ArrayList<>();
     //敌方坦克
