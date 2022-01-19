@@ -22,6 +22,8 @@ public class TankFrame extends Frame {
     List<Bullet> bullets = new ArrayList<>();
     //敌方坦克
     List<Tank> tanks = new ArrayList<>();
+    //爆炸对象
+    Explore e = new Explore(300, 300, this);
     //屏幕宽度 高度
     static final int GAME_WIDTH = 1000, GAME_HEIGHT = 800;
 
@@ -150,5 +152,7 @@ public class TankFrame extends Frame {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
+        //爆炸
+        e.paint(g);
     }
 }
