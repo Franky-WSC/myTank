@@ -133,9 +133,9 @@ public class TankFrame extends Frame {
         //画当前屏幕中子弹的数量
         Color c = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹的数量: " + bullets.size(), 100,100);
-        g.drawString("敌方坦克的数量: " + tanks.size(), 100,120);
-        g.drawString("爆炸的数量: " + explodes.size(), 100,140);
+        g.drawString("子弹的数量: " + bullets.size(), 10,50);
+        g.drawString("敌方坦克的数量: " + tanks.size(), 10,70);
+        g.drawString("爆炸的数量: " + explodes.size(), 10,90);
         g.setColor(c);
         //画出主战坦克
         myTank.paint(g);

@@ -22,8 +22,6 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
-
-        //new Audio("audio/explode.wav").play();
     }
 
     public void setX(int x) {

@@ -20,6 +20,8 @@ public class Tank {
     private boolean bLiving = true;
     private Random random = new Random();
     private Group group = Group.BAD;
+    Rectangle rect = new Rectangle();
+//    Audio audio = new Audio("audio/explode.wav");
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -27,6 +29,11 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = Tank.WIDTH;
+        rect.height = Tank.HEIGHT;
     }
 
     public boolean isbMoving() {
@@ -122,6 +129,18 @@ public class Tank {
         if(this.group == Group.BAD && random.nextInt(100) > 95){
             randomDir();
         }
+        //边界检测
+        boundsCheck();
+
+        rect.x = this.x;
+        rect.y = this.y;
+    }
+
+    private void boundsCheck() {
+        if(this.getX() < 0) x = 0;
+        else if(this.getY() < 30) y = 30;
+        else if(this.getX() > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
+        else if(this.getY() > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
     }
 
     private void randomDir() {
