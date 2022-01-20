@@ -96,7 +96,9 @@ public class Bullet {
             tank.die();
             this.die();
             //碰撞检测, 爆炸
-            tf.explodes.add(new Explode(x,y,tf));
+            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            tf.explodes.add(new Explode(eX,eY,tf));
         }
     }
 
