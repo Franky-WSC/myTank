@@ -24,7 +24,7 @@ public class TankFrame extends Frame {
     //爆炸对象
     List<Explode> explodes = new ArrayList<>();
     //屏幕宽度 高度
-    static final int GAME_WIDTH = 1000, GAME_HEIGHT = 800;
+    static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
     //构造函数
     public TankFrame() throws HeadlessException {

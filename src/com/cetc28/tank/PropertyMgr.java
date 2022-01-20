@@ -18,15 +18,16 @@ public class PropertyMgr {
             e.printStackTrace();
         }
     }
-    public static Object get(String key){
+    //获取Int数据
+    public static int getInt(String key){
         if(props == null){
-            return null;
+            return 0;
         }
-        return props.get(key);
+        return Integer.parseInt((String)props.get(key));
     }
 
     // 这是程序的main函数:入口函数
     public static void main(String[] args) {
-        System.out.println(PropertyMgr.get("initTankCount"));
+        System.out.println(PropertyMgr.getInt("initTankCount"));
     }
 }
