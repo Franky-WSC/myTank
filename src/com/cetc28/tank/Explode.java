@@ -9,7 +9,7 @@ import java.util.Random;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Explore {
+public class Explode {
     private int x,y;
     public static int WIDTH = ResourceMgr.explores[0].getWidth();
     public static int HEIGHT = ResourceMgr.explores[0].getHeight();
@@ -18,12 +18,12 @@ public class Explore {
     private boolean bLiving = true;
     private int step = 0;
 
-    public Explore(int x, int y, TankFrame tf) {
+    public Explode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
 
-        new Audio("audio/explode.wav").play();
+        //new Audio("audio/explode.wav").play();
     }
 
     public void setX(int x) {
@@ -56,7 +56,6 @@ public class Explore {
             step = 0;
         }
     }
-
 
     public void die() {
         this.bLiving = false;

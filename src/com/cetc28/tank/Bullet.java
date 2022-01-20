@@ -43,10 +43,6 @@ public class Bullet {
     }
 
     public void paint(Graphics g){
-//        Color c = g.getColor();
-//        g.setColor(Color.red);
-//        g.fillOval(x,y,WIDTH,HEIGHT);
-//        g.setColor(c);
         switch(dir){
             case LEFT:
                 g.drawImage(ResourceMgr.bulletL,x,y,null);

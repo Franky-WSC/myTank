@@ -7,7 +7,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 
 /**
  * @Auther: WSC
@@ -17,13 +16,13 @@ import java.util.function.BiFunction;
  */
 public class TankFrame extends Frame {
     //主战坦克
-    Tank myTank1 = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
+    Tank myTank = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
     //子弹容器
     List<Bullet> bullets = new ArrayList<>();
     //敌方坦克
     List<Tank> tanks = new ArrayList<>();
     //爆炸对象
-    Explore e = new Explore(300, 300, this);
+    Explode e = new Explode(300, 300, this);
     //屏幕宽度 高度
     static final int GAME_WIDTH = 1000, GAME_HEIGHT = 800;
 
@@ -92,7 +91,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank1.fire();
+                    myTank.fire();
                     break;
                 default:
                     break;
@@ -102,18 +101,19 @@ public class TankFrame extends Frame {
         //设置主站坦克的运行方向
         private void setMainTankDir() {
             if(!bL && !bR && !bU && !bD){
-                myTank1.setbMoving(false);
+                myTank.setbMoving(false);
             }else{
-                myTank1.setbMoving(true);
-                if(bL) myTank1.setDir(Dir.LEFT);
-                if(bR) myTank1.setDir(Dir.RIGHT);
-                if(bU) myTank1.setDir(Dir.UP);
-                if(bD) myTank1.setDir(Dir.DOWN);
+                myTank.setbMoving(true);
+                if(bL) myTank.setDir(Dir.LEFT);
+                if(bR) myTank.setDir(Dir.RIGHT);
+                if(bU) myTank.setDir(Dir.UP);
+                if(bD) myTank.setDir(Dir.DOWN);
             }
         }
     }
-    Image offScreenImage = null;
 
+    //双缓冲: 解决游戏界面闪烁问题
+    Image offScreenImage = null;
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
@@ -137,7 +137,7 @@ public class TankFrame extends Frame {
         g.drawString("敌方坦克的数量: " + tanks.size(), 100,120);
         g.setColor(c);
         //画出主战坦克
-        myTank1.paint(g);
+        myTank.paint(g);
         //画出子弹
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
@@ -152,7 +152,7 @@ public class TankFrame extends Frame {
                 bullets.get(i).collideWith(tanks.get(j));
             }
         }
-        //爆炸
+        //画出爆炸
         e.paint(g);
     }
 }
