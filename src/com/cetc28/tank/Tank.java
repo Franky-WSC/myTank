@@ -114,10 +114,18 @@ public class Tank {
                 y += SPEED;
                 break;
         }
-
-        if(random.nextInt(10) > 8){
+        //敌方坦克自主发射子弹
+        if(this.group == Group.BAD && random.nextInt(10) > 8){
             this.fire();
         }
+        //敌方坦克自主改变方向
+        if(this.group == Group.BAD && random.nextInt(100) > 95){
+            randomDir();
+        }
+    }
+
+    private void randomDir() {
+        setDir(Dir.values()[random.nextInt(4)]);
     }
 
     public void fire() {
