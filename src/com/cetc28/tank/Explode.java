@@ -1,7 +1,6 @@
 package com.cetc28.tank;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * @Auther: WSC
@@ -11,8 +10,8 @@ import java.util.Random;
  */
 public class Explode {
     private int x,y;
-    public static int WIDTH = ResourceMgr.explores[0].getWidth();
-    public static int HEIGHT = ResourceMgr.explores[0].getHeight();
+    public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
+    public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
 
     private TankFrame tf = null;
     private boolean bLiving = true;
@@ -49,8 +48,8 @@ public class Explode {
     }
 
     public void paint(Graphics g){
-        g.drawImage(ResourceMgr.explores[step++],x,y,null);
-        if(step >= ResourceMgr.explores.length){
+        g.drawImage(ResourceMgr.getInstance().explodes[step++],x,y,null);
+        if(step >= ResourceMgr.getInstance().explodes.length){
             tf.explodes.remove(this);
         }
     }

@@ -10,8 +10,8 @@ import java.awt.*;
  */
 public class Bullet {
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
-    public static int WIDTH = ResourceMgr.bulletL.getWidth();
-    public static int HEIGHT = ResourceMgr.bulletL.getHeight();
+    public static int WIDTH = ResourceMgr.getInstance().bulletL.getWidth();
+    public static int HEIGHT = ResourceMgr.getInstance().bulletL.getHeight();
     private int x, y;
     private Dir dir;
     private boolean bLive = true;
@@ -51,16 +51,16 @@ public class Bullet {
     public void paint(Graphics g){
         switch(dir){
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                g.drawImage(ResourceMgr.getInstance().bulletL,x,y,null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                g.drawImage(ResourceMgr.getInstance().bulletR,x,y,null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                g.drawImage(ResourceMgr.getInstance().bulletU,x,y,null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                g.drawImage(ResourceMgr.getInstance().bulletD,x,y,null);
                 break;
             default:
                 break;

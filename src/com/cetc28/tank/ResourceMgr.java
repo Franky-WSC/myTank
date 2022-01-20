@@ -11,11 +11,8 @@ import java.io.IOException;
  * @version: 1.0
  */
 public class ResourceMgr {
-    public static BufferedImage goodTankL, goodTankR, goodTankU, goodTankD;
-    public static BufferedImage badTankL, badTankR, badTankU, badTankD;
-    public static BufferedImage bulletL, bulletR, bulletU, bulletD;
-    public static BufferedImage[] explores = new BufferedImage[16];
-    static{
+    // 单例模式
+    private ResourceMgr(){
         try {
             goodTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
             goodTankL = ImageUtil.rotateImage(goodTankU,-90);
@@ -33,10 +30,22 @@ public class ResourceMgr {
             bulletD = ImageUtil.rotateImage(bulletU,180);
 
             for (int i = 0; i < 16; i++) {
-                explores[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e" + (i+1) + ".gif"));
+                explodes[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e" + (i+1) + ".gif"));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    private static final ResourceMgr resourceMgr;
+    static{
+        resourceMgr = new ResourceMgr();
+    }
+    public static ResourceMgr getInstance(){
+        return resourceMgr;
+    }
+    public BufferedImage goodTankL, goodTankR, goodTankU, goodTankD;
+    public BufferedImage badTankL, badTankR, badTankU, badTankD;
+    public BufferedImage bulletL, bulletR, bulletU, bulletD;
+    public BufferedImage[] explodes = new BufferedImage[16];
+
 }
