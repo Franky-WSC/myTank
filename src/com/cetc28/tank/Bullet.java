@@ -42,6 +42,8 @@ public class Bullet {
         this.group = group;
         this.tf = tf;
 
+        tf.bullets.add(this);
+
         rect.x = this.x;
         rect.y = this.y;
         rect.width = Bullet.WIDTH;
@@ -104,7 +106,10 @@ public class Bullet {
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
             tf.explodes.add(new Explode(eX,eY,tf));
-//            tank.audio.play();
+            //发出声音
+            new Thread(()->{
+                new Audio("audio/explode.wav").play();
+            }).start();
         }
     }
 

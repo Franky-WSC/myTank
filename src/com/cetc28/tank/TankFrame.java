@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,20 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire();
+                    myTank.fire(FourDireFireStrategy.getInstance());
+//                    try {
+//                        myTank.fire((FireStrategy) Class.forName(PropertyMgr.getString("goodFS")).getDeclaredConstructor().newInstance());
+//                    } catch (ClassNotFoundException ex) {
+//                        ex.printStackTrace();
+//                    } catch (InstantiationException ex) {
+//                        ex.printStackTrace();
+//                    } catch (InvocationTargetException ex) {
+//                        ex.printStackTrace();
+//                    } catch (NoSuchMethodException ex) {
+//                        ex.printStackTrace();
+//                    } catch (IllegalAccessException ex) {
+//                        ex.printStackTrace();
+//                    }
                     break;
                 default:
                     break;

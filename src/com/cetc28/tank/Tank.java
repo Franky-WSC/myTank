@@ -21,7 +21,6 @@ public class Tank {
     private Random random = new Random();
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
-//    Audio audio = new Audio("audio/explode.wav");
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -42,6 +41,10 @@ public class Tank {
 
     public void setbMoving(boolean bMoving) {
         this.bMoving = bMoving;
+    }
+
+    public Dir getDir() {
+        return dir;
     }
 
     public void setX(int x) {
@@ -123,7 +126,7 @@ public class Tank {
         }
         //敌方坦克自主发射子弹
         if(this.group == Group.BAD && random.nextInt(10) > 8){
-            this.fire();
+            this.fire(DefaultFireStrategy.getInstance());
         }
         //敌方坦克自主改变方向
         if(this.group == Group.BAD && random.nextInt(100) > 95){
@@ -147,10 +150,8 @@ public class Tank {
         setDir(Dir.values()[random.nextInt(4)]);
     }
 
-    public void fire() {
-        int bX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bX,bY,this.dir, this.group, tf));
+    public void fire(FireStrategy fs) {
+        fs.fire(this);
     }
 
     public void die() {

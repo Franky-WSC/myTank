@@ -25,6 +25,13 @@ public class PropertyMgr {
         }
         return Integer.parseInt((String)props.get(key));
     }
+    //获取String数据
+    public static String getString(String key){
+        if(props == null){
+            return null;
+        }
+        return (String)props.get(key);
+    }
 
     // 这是程序的main函数:入口函数
     public static void main(String[] args) {

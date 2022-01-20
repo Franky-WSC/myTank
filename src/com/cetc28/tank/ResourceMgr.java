@@ -36,12 +36,12 @@ public class ResourceMgr {
             e.printStackTrace();
         }
     }
-    private static final ResourceMgr resourceMgr;
+    private static final ResourceMgr INSTANCE;
     static{
-        resourceMgr = new ResourceMgr();
+        INSTANCE = new ResourceMgr();
     }
     public static ResourceMgr getInstance(){
-        return resourceMgr;
+        return INSTANCE;
     }
     public BufferedImage goodTankL, goodTankR, goodTankU, goodTankD;
     public BufferedImage badTankL, badTankR, badTankU, badTankD;
