@@ -6,11 +6,11 @@ import java.awt.*;
 
 /**
  * @Auther: WSC
- * @Date: 2022/1/18 - 01 - 18 - 15:44
+ * @Date: 2022/1/21 - 01 - 21 - 20:27
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
     public static int WIDTH = ResourceMgr.getInstance().bulletL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletL.getHeight();
@@ -37,7 +37,7 @@ public class Bullet extends BaseBullet {
         this.group = group;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -57,22 +57,10 @@ public class Bullet extends BaseBullet {
         if(!bLive){
             tf.bullets.remove(this);
         }
-        switch(dir){
-            case LEFT:
-                g.drawImage(ResourceMgr.getInstance().bulletL,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.getInstance().bulletR,x,y,null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.getInstance().bulletU,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.getInstance().bulletD,x,y,null);
-                break;
-            default:
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.BLUE);
+        g.fillRect(x, y, 5, 5);
+        g.setColor(c);
         move();
     }
 

@@ -7,11 +7,11 @@ import java.util.Random;
 
 /**
  * @Auther: WSC
- * @Date: 2022/1/18 - 01 - 18 - 13:31
+ * @Date: 2022/1/21 - 01 - 21 - 20:17
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank {
     private int x,y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
@@ -24,7 +24,7 @@ public class Tank extends BaseTank {
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -90,22 +90,10 @@ public class Tank extends BaseTank {
         if(!bLiving){
             this.tf.tanks.remove(this);
         }
-        switch(dir){
-            case LEFT:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.getInstance().goodTankL : ResourceMgr.getInstance().badTankL,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.getInstance().goodTankR : ResourceMgr.getInstance().badTankR,x,y,null);
-                break;
-            case UP:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.getInstance().goodTankU : ResourceMgr.getInstance().badTankU,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.getInstance().goodTankD : ResourceMgr.getInstance().badTankD,x,y,null);
-                break;
-            default:
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.GREEN);
+        g.fillRect(x, y, 50, 50);
+        g.setColor(c);
         move();
     }
 

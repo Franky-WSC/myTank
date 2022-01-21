@@ -1,11 +1,12 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.abstractfactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +17,18 @@ import java.util.List;
  * @version: 1.0
  */
 public class TankFrame extends Frame {
+    //抽象工厂
+//    GameFactory gf = new DefaultGameFactory();//默认工厂
+    GameFactory gf = new RectGameFactory();//方形工厂
     //主战坦克
-    Tank myTank = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
+//    Tank myTank = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
+    BaseTank myTank = gf.createTank(200, 200, Dir.DOWN, Group.GOOD, this);
     //子弹容器
-    List<Bullet> bullets = new ArrayList<>();
+    List<BaseBullet> bullets = new ArrayList<>();
     //敌方坦克
     List<Tank> tanks = new ArrayList<>();
     //爆炸对象
-    List<Explode> explodes = new ArrayList<>();
+    List<BaseExplode> explodes = new ArrayList<>();
     //屏幕宽度 高度
     static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
@@ -93,19 +98,6 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_CONTROL:
                     myTank.fire(FourDireFireStrategy.getInstance());
-//                    try {
-//                        myTank.fire((FireStrategy) Class.forName(PropertyMgr.getString("goodFS")).getDeclaredConstructor().newInstance());
-//                    } catch (ClassNotFoundException ex) {
-//                        ex.printStackTrace();
-//                    } catch (InstantiationException ex) {
-//                        ex.printStackTrace();
-//                    } catch (InvocationTargetException ex) {
-//                        ex.printStackTrace();
-//                    } catch (NoSuchMethodException ex) {
-//                        ex.printStackTrace();
-//                    } catch (IllegalAccessException ex) {
-//                        ex.printStackTrace();
-//                    }
                     break;
                 default:
                     break;

@@ -1,5 +1,7 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.abstractfactory.BaseTank;
+
 /**
  * @Auther: WSC
  * @Date: 2022/1/20 - 01 - 20 - 20:51
@@ -8,5 +10,5 @@ package com.cetc28.tank;
  */
 public interface FireStrategy {
     //fire方法
-    void fire(Tank t);
+    void fire(BaseTank t);
 }

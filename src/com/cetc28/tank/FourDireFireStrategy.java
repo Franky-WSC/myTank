@@ -1,5 +1,7 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.abstractfactory.BaseTank;
+
 /**
  * @Auther: WSC
  * @Date: 2022/1/20 - 01 - 20 - 21:28
@@ -16,12 +18,13 @@ public class FourDireFireStrategy implements FireStrategy {
         return INSTANCE;
     }
     @Override
-    public void fire(Tank t) {
+    public void fire(BaseTank t) {
         int bX = t.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = t.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         Dir[] dir = Dir.values();
         for(Dir d : dir){
-            new Bullet(bX,bY,d, t.getGroup(), t.getTf());
+//            new Bullet(bX,bY,d, t.getGroup(), t.getTf());
+            t.getTf().gf.createBullet(bX, bY, d, t.getGroup(), t.getTf());//工厂模式
         }
         if(t.getGroup() == Group.GOOD){
             new Thread(()->{
