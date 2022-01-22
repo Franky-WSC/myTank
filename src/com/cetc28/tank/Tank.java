@@ -13,7 +13,7 @@ import java.util.Random;
  * @version: 1.0
  */
 public class Tank extends GameObject{
-    private int x,y;
+//    private int x,y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     public static int WIDTH = ResourceMgr.getInstance().goodTankL.getWidth();

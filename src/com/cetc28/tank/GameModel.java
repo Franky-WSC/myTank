@@ -45,8 +45,13 @@ public class GameModel {
         int tankCount = PropertyMgr.getInt("initTankCount");
         //初始化敌方坦克
         for (int i = 0; i < tankCount; i++) {
-            objects.add(new Tank(50+i*100,400,Dir.DOWN, Group.BAD, this));
+            objects.add(new Tank(50+i*100,600,Dir.DOWN, Group.BAD, this));
         }
+        //初始化墙
+        add(new Wall(150,150,200,50));
+        add(new Wall(550,150,200,50));
+        add(new Wall(300,300,50,200));
+        add(new Wall(550,300,50,200));
     }
 
     public void paint(Graphics g) {

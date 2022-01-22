@@ -9,7 +9,7 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Explode extends GameObject{
-    private int x,y;
+//    private int x,y;
     public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
 

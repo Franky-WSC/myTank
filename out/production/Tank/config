@@ -8,4 +8,4 @@ gameHeight=720
 goodFS=com.cetc28.tank.strategy.FourDireFireStrategy
 badFS=com.cetc28.tank.strategy.DefaultFireStrategy
 #Colliders
-colliders=com.cetc28.tank.cor.BulletTankCollider,com.cetc28.tank.cor.TankTankCollider
+colliders=com.cetc28.tank.cor.BulletTankCollider,com.cetc28.tank.cor.TankTankCollider,com.cetc28.tank.cor.BulletWallCollider,com.cetc28.tank.cor.TankWallCollider
