@@ -19,7 +19,7 @@ public class Tank extends GameObject{
     public static int WIDTH = ResourceMgr.getInstance().goodTankL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankL.getHeight();
     private boolean bMoving = true;
-    private GameModel gm;
+//    private GameModel gm;
     private boolean bLiving = true;
     private Random random = new Random();
     private Group group = Group.BAD;
@@ -45,12 +45,11 @@ public class Tank extends GameObject{
         this.rect = rect;
     }
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -90,14 +89,6 @@ public class Tank extends GameObject{
         this.dir = dir;
     }
 
-    public GameModel getGm() {
-        return gm;
-    }
-
-    public void setGm(GameModel Gf) {
-        this.gm = gm;
-    }
-
     public Group getGroup() {
         return group;
     }
@@ -108,7 +99,7 @@ public class Tank extends GameObject{
 
     public void paint(Graphics g){
         if(!bLiving){
-            this.gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch(dir){
             case LEFT:

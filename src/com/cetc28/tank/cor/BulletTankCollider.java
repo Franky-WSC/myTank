@@ -23,7 +23,7 @@ public class BulletTankCollider implements Collider {
                 //碰撞检测, 爆炸
                 int eX = t.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
                 int eY = t.getY() + Tank.WIDTH / 2 - Explode.HEIGHT / 2;
-                b.getGm().add(new Explode(eX, eY, b.getGm()));
+                GameModel.getInstance().add(new Explode(eX, eY));
                 //发出声音
 //                new Thread(()->{
 //                    new Audio("audio/explode.wav").play();

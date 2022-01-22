@@ -15,7 +15,7 @@ public class Bullet extends GameObject{
     public static int HEIGHT = ResourceMgr.getInstance().bulletL.getHeight();
     private Dir dir;
     private boolean bLive = true;
-    private GameModel gm;
+//    private GameModel gm;
     private Group group = Group.BAD;
     private Rectangle rect = new Rectangle();
 
@@ -33,14 +33,6 @@ public class Bullet extends GameObject{
 
     public int getY() {
         return y;
-    }
-
-    public GameModel getGm() {
-        return gm;
-    }
-
-    public void setGm(GameModel gm) {
-        this.gm = gm;
     }
 
     public Rectangle getRect() {
@@ -67,19 +59,17 @@ public class Bullet extends GameObject{
         this.group = group;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
-
-        gm.add(this);
 
         rect.x = this.x;
         rect.y = this.y;
         rect.width = Bullet.WIDTH;
         rect.height = Bullet.HEIGHT;
+        GameModel.getInstance().add(this);
     }
 
     public void paint(Graphics g){
@@ -104,7 +94,7 @@ public class Bullet extends GameObject{
 
     private void move(){
         if(!bLive){
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
         switch(dir){
             case LEFT:
