@@ -16,18 +16,18 @@ public class Tank {
     public static int WIDTH = ResourceMgr.getInstance().goodTankL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankL.getHeight();
     private boolean bMoving = true;
-    private TankFrame tf;
+    private GameModel gm;
     private boolean bLiving = true;
     private Random random = new Random();
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rect.x = this.x;
         rect.y = this.y;
@@ -67,12 +67,12 @@ public class Tank {
         this.dir = dir;
     }
 
-    public TankFrame getTf() {
-        return tf;
+    public GameModel getGm() {
+        return gm;
     }
 
-    public void setTf(TankFrame tf) {
-        this.tf = tf;
+    public void setGm(GameModel Gf) {
+        this.gm = gm;
     }
 
     public Group getGroup() {
@@ -85,7 +85,7 @@ public class Tank {
 
     public void paint(Graphics g){
         if(!bLiving){
-            this.tf.tanks.remove(this);
+            this.gm.tanks.remove(this);
         }
         switch(dir){
             case LEFT:

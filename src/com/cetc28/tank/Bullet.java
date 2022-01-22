@@ -15,7 +15,7 @@ public class Bullet {
     private int x, y;
     private Dir dir;
     private boolean bLive = true;
-    private TankFrame tf;
+    private GameModel gm;
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
 
@@ -35,14 +35,14 @@ public class Bullet {
         this.group = group;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
-        tf.bullets.add(this);
+        gm.bullets.add(this);
 
         rect.x = this.x;
         rect.y = this.y;
@@ -72,7 +72,7 @@ public class Bullet {
 
     private void move(){
         if(!bLive){
-            tf.bullets.remove(this);
+            gm.bullets.remove(this);
         }
         switch(dir){
             case LEFT:
@@ -105,7 +105,7 @@ public class Bullet {
             //碰撞检测, 爆炸
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(new Explode(eX,eY,tf));
+            gm.explodes.add(new Explode(eX,eY, gm));
             //发出声音
             new Thread(()->{
                 new Audio("audio/explode.wav").play();

@@ -16,14 +16,9 @@ import java.util.List;
  * @version: 1.0
  */
 public class TankFrame extends Frame {
-    //主战坦克
-    Tank myTank = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
-    //子弹容器
-    List<Bullet> bullets = new ArrayList<>();
-    //敌方坦克
-    List<Tank> tanks = new ArrayList<>();
-    //爆炸对象
-    List<Explode> explodes = new ArrayList<>();
+    //门面(Facade)
+    GameModel gm = new GameModel();
+
     //屏幕宽度 高度
     static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
@@ -41,10 +36,10 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
-
         //添加一个Key事件监听器
         addKeyListener(new MyKeyListener());
     }
+
     //内部类
     class MyKeyListener extends KeyAdapter{
         //四个boolean值, 添加逻辑判断, 最终判断坦克前行方向, 进而行走
@@ -92,20 +87,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    myTank.fire(FourDireFireStrategy.getInstance());
-//                    try {
-//                        myTank.fire((FireStrategy) Class.forName(PropertyMgr.getString("goodFS")).getDeclaredConstructor().newInstance());
-//                    } catch (ClassNotFoundException ex) {
-//                        ex.printStackTrace();
-//                    } catch (InstantiationException ex) {
-//                        ex.printStackTrace();
-//                    } catch (InvocationTargetException ex) {
-//                        ex.printStackTrace();
-//                    } catch (NoSuchMethodException ex) {
-//                        ex.printStackTrace();
-//                    } catch (IllegalAccessException ex) {
-//                        ex.printStackTrace();
-//                    }
+                    gm.getMyTank().fire(FourDireFireStrategy.getInstance());
                     break;
                 default:
                     break;
@@ -114,6 +96,7 @@ public class TankFrame extends Frame {
         }
         //设置主站坦克的运行方向
         private void setMainTankDir() {
+            Tank myTank = gm.getMyTank();
             if(!bL && !bR && !bU && !bD){
                 myTank.setbMoving(false);
             }else{
@@ -144,32 +127,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        //画当前屏幕中子弹的数量
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量: " + bullets.size(), 10,50);
-        g.drawString("敌方坦克的数量: " + tanks.size(), 10,70);
-        g.drawString("爆炸的数量: " + explodes.size(), 10,90);
-        g.setColor(c);
-        //画出主战坦克
-        myTank.paint(g);
-        //画出子弹
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
-        }
-        //画出敌方坦克
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
-        //碰撞检测
-        for (int i = 0; i < bullets.size(); i++) {
-            for(int j = 0; j < tanks.size(); j++){
-                bullets.get(i).collideWith(tanks.get(j));
-            }
-        }
-        //画出爆炸
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
+        //GameModel调用paint即可
+        gm.paint(g);
     }
 }

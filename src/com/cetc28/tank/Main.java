@@ -13,14 +13,15 @@ import java.awt.event.WindowEvent;
 public class Main {
     // 这是程序的main函数:入口函数
     public static void main(String[] args) {
+        //启动坦克运行界面(view)
         TankFrame tf = new TankFrame();
-        //读取配置文件
-        int tankCount = PropertyMgr.getInt("initTankCount");
-        //初始化敌方坦克
-        for (int i = 0; i < tankCount; i++) {
-            tf.tanks.add(new Tank(50+i*100,400,Dir.DOWN, Group.BAD, tf));
-        }
 
+        //BGM
+        new Thread(()->{
+            new Audio("audio/war1.wav").play();
+        }).start();
+
+        //每50ms刷新一次界面
         while (true){
             try {
                 Thread.sleep(50);
