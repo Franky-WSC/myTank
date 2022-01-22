@@ -1,4 +1,6 @@
-package com.cetc28.tank;
+package com.cetc28.tank.strategy;
+
+import com.cetc28.tank.Tank;
 
 /**
  * @Auther: WSC

@@ -1,5 +1,8 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.strategy.DefaultFireStrategy;
+import com.cetc28.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -9,7 +12,7 @@ import java.util.Random;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Tank {
+public class Tank extends GameObject{
     private int x,y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
@@ -20,7 +23,27 @@ public class Tank {
     private boolean bLiving = true;
     private Random random = new Random();
     private Group group = Group.BAD;
-    Rectangle rect = new Rectangle();
+    private Rectangle rect = new Rectangle();
+
+    public void setOppositeDir(){
+        if(dir == Dir.LEFT){
+            setDir(Dir.RIGHT);
+        }else if(dir == Dir.RIGHT){
+            setDir(Dir.LEFT);
+        }else if(dir == Dir.UP){
+            setDir(Dir.DOWN);
+        }else {
+            setDir(Dir.UP);
+        }
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
 
     public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
@@ -85,7 +108,7 @@ public class Tank {
 
     public void paint(Graphics g){
         if(!bLiving){
-            this.gm.tanks.remove(this);
+            this.gm.remove(this);
         }
         switch(dir){
             case LEFT:

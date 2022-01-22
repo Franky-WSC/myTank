@@ -17,9 +17,9 @@ public class Main {
         TankFrame tf = new TankFrame();
 
         //BGM
-        new Thread(()->{
-            new Audio("audio/war1.wav").play();
-        }).start();
+//        new Thread(()->{
+//            new Audio("audio/war1.wav").play();
+//        }).start();
 
         //每50ms刷新一次界面
         while (true){

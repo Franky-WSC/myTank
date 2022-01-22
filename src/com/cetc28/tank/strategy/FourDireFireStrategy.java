@@ -1,4 +1,6 @@
-package com.cetc28.tank;
+package com.cetc28.tank.strategy;
+
+import com.cetc28.tank.*;
 
 /**
  * @Auther: WSC
@@ -23,10 +25,10 @@ public class FourDireFireStrategy implements FireStrategy {
         for(Dir d : dir){
             new Bullet(bX,bY,d, t.getGroup(), t.getGm());
         }
-        if(t.getGroup() == Group.GOOD){
-            new Thread(()->{
-                new Audio("audio/tank_fire.wav").play();
-            }).start();
-        }
+//        if(t.getGroup() == Group.GOOD){
+//            new Thread(()->{
+//                new Audio("audio/tank_fire.wav").play();
+//            }).start();
+//        }
     }
 }

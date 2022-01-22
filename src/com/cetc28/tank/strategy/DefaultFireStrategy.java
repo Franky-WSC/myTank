@@ -1,4 +1,9 @@
-package com.cetc28.tank;
+package com.cetc28.tank.strategy;
+
+import com.cetc28.tank.Audio;
+import com.cetc28.tank.Bullet;
+import com.cetc28.tank.Group;
+import com.cetc28.tank.Tank;
 
 /**
  * @Auther: WSC
@@ -20,10 +25,10 @@ public class DefaultFireStrategy implements FireStrategy {
         int bX = t.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = t.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         new Bullet(bX,bY,t.getDir(), t.getGroup(), t.getGm());
-        if(t.getGroup() == Group.GOOD){
-            new Thread(()->{
-                new Audio("audio/tank_fire.wav").play();
-            }).start();
-        }
+//        if(t.getGroup() == Group.GOOD){
+//            new Thread(()->{
+//                new Audio("audio/tank_fire.wav").play();
+//            }).start();
+//        }
     }
 }

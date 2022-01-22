@@ -1,13 +1,12 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.strategy.FourDireFireStrategy;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Auther: WSC
@@ -17,7 +16,7 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
     //门面(Facade)
-    GameModel gm = new GameModel();
+    GameModel gm = GameModel.getInstance();
 
     //屏幕宽度 高度
     static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");

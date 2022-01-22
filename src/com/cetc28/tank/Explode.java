@@ -8,7 +8,7 @@ import java.awt.*;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Explode {
+public class Explode extends GameObject{
     private int x,y;
     public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
@@ -50,7 +50,7 @@ public class Explode {
     public void paint(Graphics g){
         g.drawImage(ResourceMgr.getInstance().explodes[step++],x,y,null);
         if(step >= ResourceMgr.getInstance().explodes.length){
-            gm.explodes.remove(this);
+            gm.remove(this);
         }
     }
 

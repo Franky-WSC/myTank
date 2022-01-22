@@ -8,7 +8,7 @@ import java.awt.*;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Bullet {
+public class Bullet extends GameObject{
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
     public static int WIDTH = ResourceMgr.getInstance().bulletL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletL.getHeight();
@@ -17,7 +17,23 @@ public class Bullet {
     private boolean bLive = true;
     private GameModel gm;
     private Group group = Group.BAD;
-    Rectangle rect = new Rectangle();
+    private Rectangle rect = new Rectangle();
+
+    public GameModel getGm() {
+        return gm;
+    }
+
+    public void setGm(GameModel gm) {
+        this.gm = gm;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
 
     public boolean isbLive() {
         return bLive;
@@ -42,7 +58,7 @@ public class Bullet {
         this.group = group;
         this.gm = gm;
 
-        gm.bullets.add(this);
+        gm.add(this);
 
         rect.x = this.x;
         rect.y = this.y;
@@ -72,7 +88,7 @@ public class Bullet {
 
     private void move(){
         if(!bLive){
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch(dir){
             case LEFT:
@@ -95,25 +111,7 @@ public class Bullet {
         rect.y = this.y;
     }
 
-    public void collideWith(Tank tank) {
-        if(this.group == tank.getGroup()){
-            return;
-        }
-        if(rect.intersects(tank.rect)){
-            tank.die();
-            this.die();
-            //碰撞检测, 爆炸
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gm.explodes.add(new Explode(eX,eY, gm));
-            //发出声音
-            new Thread(()->{
-                new Audio("audio/explode.wav").play();
-            }).start();
-        }
-    }
-
-    private void die() {
+    public void die() {
         this.bLive = false;
     }
 }

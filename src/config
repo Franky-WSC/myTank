@@ -5,5 +5,7 @@ bulletSpeed=10
 gameWidth=1080
 gameHeight=720
 #fireStrategy
-goodFS=com.cetc28.tank.FourDireFireStrategy
-badFS=com.cetc28.tank.DefaultFireStrategy
+goodFS=com.cetc28.tank.strategy.FourDireFireStrategy
+badFS=com.cetc28.tank.strategy.DefaultFireStrategy
+#Colliders
+colliders=com.cetc28.tank.cor.BulletTankCollider,com.cetc28.tank.cor.TankTankCollider
