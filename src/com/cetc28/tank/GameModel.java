@@ -4,6 +4,10 @@ import com.cetc28.tank.cor.BulletTankCollider;
 import com.cetc28.tank.cor.Collider;
 import com.cetc28.tank.cor.ColliderChain;
 import com.cetc28.tank.cor.TankTankCollider;
+import com.cetc28.tank.decorator.CircleDecorator;
+import com.cetc28.tank.decorator.GODecorator;
+import com.cetc28.tank.decorator.LineDecorator;
+import com.cetc28.tank.decorator.RectDecorator;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,6 +29,8 @@ public class GameModel {
     }
     //主战坦克
     Tank myTank = null;
+    //装饰器
+    GODecorator decorator = null;
     //其他所有对象
     private List<GameObject> objects = new ArrayList<>();
     //碰撞检测的责任链
@@ -41,6 +47,9 @@ public class GameModel {
     private GameModel() {
         //初始化主战坦克
         myTank = new Tank(200,200,Dir.DOWN, Group.GOOD);
+        //装饰器
+        decorator = new RectDecorator(new LineDecorator(new CircleDecorator(myTank)));
+
         //读取配置文件
         int tankCount = PropertyMgr.getInt("initTankCount");
         //初始化敌方坦克
@@ -61,7 +70,9 @@ public class GameModel {
         g.drawString("物体的数量: " + objects.size(), 10,50);
         g.setColor(c);
         //画出主战坦克
-        myTank.paint(g);
+//        myTank.paint(g);
+        //装饰器
+        decorator.paint(g);
         //画出所有物品
         for (int i = 0; i < objects.size(); i++) {
             objects.get(i).paint(g);

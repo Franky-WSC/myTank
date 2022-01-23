@@ -9,30 +9,22 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Bullet extends GameObject{
-//    private int x, y;
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
     public static int WIDTH = ResourceMgr.getInstance().bulletL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletL.getHeight();
     private Dir dir;
     private boolean bLive = true;
-//    private GameModel gm;
     private Group group = Group.BAD;
     private Rectangle rect = new Rectangle();
 
-    public void setX(int x) {
-        this.x = x;
+    @Override
+    public int getWidth() {
+        return WIDTH;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public Rectangle getRect() {

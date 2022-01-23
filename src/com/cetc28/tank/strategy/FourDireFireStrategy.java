@@ -1,6 +1,9 @@
 package com.cetc28.tank.strategy;
 
 import com.cetc28.tank.*;
+import com.cetc28.tank.decorator.CircleDecorator;
+import com.cetc28.tank.decorator.LineDecorator;
+import com.cetc28.tank.decorator.RectDecorator;
 
 /**
  * @Auther: WSC
@@ -24,6 +27,7 @@ public class FourDireFireStrategy implements FireStrategy {
         Dir[] dir = Dir.values();
         for(Dir d : dir){
             new Bullet(bX,bY,d, t.getGroup());
+//            GameModel.getInstance().add(new RectDecorator(new LineDecorator(new CircleDecorator(new Bullet(bX,bY,d, t.getGroup())))));
         }
 //        if(t.getGroup() == Group.GOOD){
 //            new Thread(()->{

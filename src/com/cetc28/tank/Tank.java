@@ -13,13 +13,11 @@ import java.util.Random;
  * @version: 1.0
  */
 public class Tank extends GameObject{
-//    private int x,y;
     private Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     public static int WIDTH = ResourceMgr.getInstance().goodTankL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().goodTankL.getHeight();
     private boolean bMoving = true;
-//    private GameModel gm;
     private boolean bLiving = true;
     private Random random = new Random();
     private Group group = Group.BAD;
@@ -35,6 +33,16 @@ public class Tank extends GameObject{
         }else {
             setDir(Dir.UP);
         }
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public Rectangle getRect() {
@@ -67,22 +75,6 @@ public class Tank extends GameObject{
 
     public Dir getDir() {
         return dir;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void setDir(Dir dir) {

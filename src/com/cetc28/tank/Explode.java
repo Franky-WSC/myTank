@@ -9,11 +9,8 @@ import java.awt.*;
  * @version: 1.0
  */
 public class Explode extends GameObject{
-//    private int x,y;
     public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
-
-//    private GameModel gm = null;
     private boolean bLiving = true;
     private int step = 0;
 
@@ -22,21 +19,17 @@ public class Explode extends GameObject{
         this.y = y;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    @Override
+    public int getWidth() {
+        return WIDTH;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
-    public int getX() {
-        return x;
-    }
 
-    public int getY() {
-        return y;
-    }
 
     public void paint(Graphics g){
         g.drawImage(ResourceMgr.getInstance().explodes[step++],x,y,null);

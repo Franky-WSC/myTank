@@ -1,6 +1,9 @@
 package com.cetc28.tank.strategy;
 
 import com.cetc28.tank.*;
+import com.cetc28.tank.decorator.CircleDecorator;
+import com.cetc28.tank.decorator.LineDecorator;
+import com.cetc28.tank.decorator.RectDecorator;
 
 /**
  * @Auther: WSC
@@ -22,6 +25,8 @@ public class DefaultFireStrategy implements FireStrategy {
         int bX = t.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = t.getY() + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         new Bullet(bX,bY,t.getDir(), t.getGroup());
+//        GameModel.getInstance().add(new RectDecorator(new LineDecorator(new CircleDecorator(new Bullet(bX,bY,t.getDir(), t.getGroup())))));
+        //声音
 //        if(t.getGroup() == Group.GOOD){
 //            new Thread(()->{
 //                new Audio("audio/tank_fire.wav").play();
