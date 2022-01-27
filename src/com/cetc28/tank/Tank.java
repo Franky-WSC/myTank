@@ -4,6 +4,7 @@ import com.cetc28.tank.strategy.DefaultFireStrategy;
 import com.cetc28.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Random;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Tank extends GameObject{
+public class Tank extends GameObject implements Serializable{
     private Dir dir = Dir.DOWN;
     private static final int SPEED = PropertyMgr.getInt("tankSpeed");
     public static int WIDTH = ResourceMgr.getInstance().goodTankL.getWidth();

@@ -1,6 +1,7 @@
 package com.cetc28.tank;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @Auther: WSC
@@ -8,7 +9,7 @@ import java.awt.*;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Bullet extends GameObject{
+public class Bullet extends GameObject implements Serializable{
     private static final int SPEED = PropertyMgr.getInt("bulletSpeed");
     public static int WIDTH = ResourceMgr.getInstance().bulletL.getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().bulletL.getHeight();

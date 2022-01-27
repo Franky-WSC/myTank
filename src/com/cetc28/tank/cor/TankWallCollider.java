@@ -4,13 +4,15 @@ import com.cetc28.tank.GameObject;
 import com.cetc28.tank.Tank;
 import com.cetc28.tank.Wall;
 
+import java.io.Serializable;
+
 /**
  * @Auther: WSC
  * @Date: 2022/1/22 - 01 - 22 - 19:46
  * @Description: com.cetc28.tank.cor
  * @version: 1.0
  */
-public class TankWallCollider implements Collider {
+public class TankWallCollider implements Collider, Serializable {
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if(o1 instanceof Tank && o2 instanceof Wall){

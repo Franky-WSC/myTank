@@ -1,6 +1,7 @@
 package com.cetc28.tank;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @Auther: WSC
@@ -8,7 +9,7 @@ import java.awt.*;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Explode extends GameObject{
+public class Explode extends GameObject implements Serializable{
     public static int WIDTH = ResourceMgr.getInstance().explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.getInstance().explodes[0].getHeight();
     private boolean bLiving = true;

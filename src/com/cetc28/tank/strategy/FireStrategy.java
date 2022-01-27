@@ -8,7 +8,7 @@ import com.cetc28.tank.Tank;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public interface FireStrategy {
+public interface FireStrategy{
     //fire方法
     void fire(Tank t);
 }

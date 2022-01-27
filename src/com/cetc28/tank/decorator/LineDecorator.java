@@ -3,6 +3,7 @@ package com.cetc28.tank.decorator;
 import com.cetc28.tank.GameObject;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @Auther: WSC
@@ -10,7 +11,7 @@ import java.awt.*;
  * @Description: com.cetc28.tank.decorator
  * @version: 1.0
  */
-public class LineDecorator extends GODecorator {
+public class LineDecorator extends GODecorator implements Serializable {
     public LineDecorator(GameObject go) {
         super(go);
     }

@@ -3,6 +3,7 @@ package com.cetc28.tank.cor;
 import com.cetc28.tank.GameObject;
 import com.cetc28.tank.PropertyMgr;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  * @Description: com.cetc28.tank.cor
  * @version: 1.0
  */
-public class ColliderChain implements Collider {
+public class ColliderChain implements Collider, Serializable {
     private List<Collider> colliders = new LinkedList<>();
 
     public ColliderChain() {

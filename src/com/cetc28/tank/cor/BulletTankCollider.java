@@ -2,13 +2,15 @@ package com.cetc28.tank.cor;
 
 import com.cetc28.tank.*;
 
+import java.io.Serializable;
+
 /**
  * @Auther: WSC
  * @Date: 2022/1/22 - 01 - 22 - 19:23
  * @Description: com.cetc28.tank.cor
  * @version: 1.0
  */
-public class BulletTankCollider implements Collider {
+public class BulletTankCollider implements Collider, Serializable {
     @Override
     public boolean collide(GameObject o1, GameObject o2) {
         if(o1 instanceof Bullet && o2 instanceof Tank){

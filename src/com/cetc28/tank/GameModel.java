@@ -10,6 +10,7 @@ import com.cetc28.tank.decorator.LineDecorator;
 import com.cetc28.tank.decorator.RectDecorator;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class GameModel {
+public class GameModel implements Serializable{
     private static final GameModel INSTANCE;
     static{
         INSTANCE = new GameModel();
@@ -90,5 +91,49 @@ public class GameModel {
 
     public Tank getMyTank() {
         return myTank;
+    }
+
+    public void save(){
+        File f = new File("d://tank.data");
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(f));
+            oos.writeObject(this);
+//            oos.writeObject(objects);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if(oos != null){
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void load() {
+        File f = new File("d://tank.data");
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(f));
+            GameModel gm = (GameModel)ois.readObject();
+//            objects = (List)ois.readObject();
+            this.myTank = gm.myTank;
+            this.objects = gm.objects;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }finally {
+            if(ois != null){
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

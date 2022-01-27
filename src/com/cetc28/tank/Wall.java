@@ -1,6 +1,7 @@
 package com.cetc28.tank;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @Auther: WSC
@@ -8,7 +9,7 @@ import java.awt.*;
  * @Description: com.cetc28.tank
  * @version: 1.0
  */
-public class Wall extends GameObject {
+public class Wall extends GameObject implements Serializable{
     private Rectangle rect;
     private int w,h;
 
