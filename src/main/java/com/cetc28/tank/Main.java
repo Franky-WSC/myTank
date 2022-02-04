@@ -1,9 +1,5 @@
 package com.cetc28.tank;
 
-import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 /**
  * @Auther: WSC
  * @Date: 2022/1/17 - 01 - 17 - 20:16
