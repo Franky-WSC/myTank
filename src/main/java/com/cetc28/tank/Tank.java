@@ -2,6 +2,7 @@ package com.cetc28.tank;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * @Auther: WSC
@@ -22,6 +23,15 @@ public class Tank {
     private Group group = Group.BAD;
     Rectangle rect = new Rectangle();
 //    Audio audio = new Audio("audio/explode.wav");
+    UUID id = UUID.randomUUID();//偷懒做法, 真正应该是由客户端登陆时, 由服务器来发送给客户端uuid来保证唯一
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -62,6 +72,10 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public Dir getDir() {
+        return dir;
     }
 
     public TankFrame getTf() {

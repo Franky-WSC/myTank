@@ -1,6 +1,5 @@
 package com.cetc28.tank.net;
 
-import com.cetc28.tank.net.TankMsg;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -11,10 +10,11 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @Description: com.cetc28.nettystudy.s02
  * @version: 1.0
  */
-public class TankMsgEncoder extends MessageToByteEncoder<TankMsg> {
+public class TankJoinMsgEncoder extends MessageToByteEncoder<TankJoinMsg> {
     @Override
-    protected void encode(ChannelHandlerContext ctx, TankMsg msg, ByteBuf buf) throws Exception {
-        buf.writeInt(msg.x);
-        buf.writeInt(msg.y);
+    protected void encode(ChannelHandlerContext ctx, TankJoinMsg msg, ByteBuf buf) throws Exception {
+//        buf.writeInt(msg.x);
+//        buf.writeInt(msg.y);
+        buf.writeBytes(msg.toBytes());
     }
 }
