@@ -5,7 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -15,16 +15,20 @@ import java.util.List;
  * @version: 1.0
  */
 public class TankFrame extends Frame {
+    //屏幕宽度 高度
+    static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
+    public static final TankFrame INSTANCE = new TankFrame();
+
+    Random r = new Random();
+
     //主战坦克
-    Tank myTank = new Tank(200,200,Dir.DOWN, Group.GOOD,this);
+    Tank myTank = new Tank(r.nextInt(GAME_WIDTH),r.nextInt(GAME_HEIGHT),Dir.DOWN, Group.GOOD,this);
     //子弹容器
     List<Bullet> bullets = new ArrayList<>();
     //敌方坦克
-    List<Tank> tanks = new ArrayList<>();
+    Map<UUID,Tank> tanks = new HashMap<>();
     //爆炸对象
     List<Explode> explodes = new ArrayList<>();
-    //屏幕宽度 高度
-    static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
     //构造函数
     public TankFrame() throws HeadlessException {
@@ -44,6 +48,15 @@ public class TankFrame extends Frame {
         //添加一个Key事件监听器
         addKeyListener(new MyKeyListener());
     }
+
+    public Tank findByUUID(UUID id) {
+        return tanks.get(id);
+    }
+
+    public void addTank(Tank t) {
+        tanks.put(t.getId(),t);
+    }
+
     //内部类
     class MyKeyListener extends KeyAdapter{
         //四个boolean值, 添加逻辑判断, 最终判断坦克前行方向, 进而行走
@@ -143,10 +156,10 @@ public class TankFrame extends Frame {
         for (int i = 0; i < bullets.size(); i++) {
             bullets.get(i).paint(g);
         }
-        //画出敌方坦克
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
-        }
+        //画出敌方坦克: java8的stream API
+        tanks.values().stream().forEach((e)->{
+            e.paint(g);
+        });
         //碰撞检测
         for (int i = 0; i < bullets.size(); i++) {
             for(int j = 0; j < tanks.size(); j++){
@@ -157,5 +170,9 @@ public class TankFrame extends Frame {
         for (int i = 0; i < explodes.size(); i++) {
             explodes.get(i).paint(g);
         }
+    }
+
+    public Tank getMainTank(){
+        return this.myTank;
     }
 }

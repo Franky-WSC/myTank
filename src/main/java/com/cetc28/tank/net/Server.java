@@ -73,28 +73,22 @@ class MyServerHandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-//        System.out.println("channelRead");
-//        try {
-//            TankMsg tm = (TankMsg)msg;
-//            ServerFrame.INSTANCE.updateClientMsg(tm.toString());//收到的消息显示在主面板右边
-//        }finally {
-//            ReferenceCountUtil.release(msg);
-//        }
+        Server.clients.writeAndFlush(msg);
 
-        ByteBuf buf = (ByteBuf) msg;
-        //将客户端发来的消息在服务器中打印显示
-        byte[] bytes = new byte[buf.readableBytes()];
-        buf.getBytes(buf.readerIndex(),bytes);
-        String str = new String(bytes);//收到的消息转化成的字符串
-        ServerFrame.INSTANCE.updateClientMsg(str);//收到的消息显示在主面板右边
-        if ("_bye_".equals(str)){
-            ServerFrame.INSTANCE.updateClientMsg("客户端请求退出");
-            Server.clients.remove(ctx.channel());
-            ctx.close();
-        }else{
-            //把该消息发送给当前连接上的所有客户端
-            Server.clients.writeAndFlush(buf);
-        }
+//        ByteBuf buf = (ByteBuf) msg;
+//        //将客户端发来的消息在服务器中打印显示
+//        byte[] bytes = new byte[buf.readableBytes()];
+//        buf.getBytes(buf.readerIndex(),bytes);
+//        String str = new String(bytes);//收到的消息转化成的字符串
+//        ServerFrame.INSTANCE.updateClientMsg(str);//收到的消息显示在主面板右边
+//        if ("_bye_".equals(str)){
+//            ServerFrame.INSTANCE.updateClientMsg("客户端请求退出");
+//            Server.clients.remove(ctx.channel());
+//            ctx.close();
+//        }else{
+//            //把该消息发送给当前连接上的所有客户端
+//            Server.clients.writeAndFlush(buf);
+//        }
     }
 
     @Override

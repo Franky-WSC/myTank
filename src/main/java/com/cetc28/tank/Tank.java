@@ -1,5 +1,7 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.net.TankJoinMsg;
+
 import java.awt.*;
 import java.util.Random;
 import java.util.UUID;
@@ -31,6 +33,15 @@ public class Tank {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public Tank(TankJoinMsg msg){
+        this.x = msg.x;
+        this.y = msg.y;
+        this.dir = msg.dir;
+        this.bMoving = msg.moving;
+        this.group = msg.group;
+        this.id = msg.id;
     }
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
@@ -98,6 +109,12 @@ public class Tank {
         if(!bLiving){
             this.tf.tanks.remove(this);
         }
+
+        Color c = g.getColor();
+        g.setColor(Color.yellow);
+        g.drawString(id.toString(), this.getX(), this.getY()-10);
+        g.setColor(c);
+
         switch(dir){
             case LEFT:
                 g.drawImage(this.getGroup() == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL,x,y,null);

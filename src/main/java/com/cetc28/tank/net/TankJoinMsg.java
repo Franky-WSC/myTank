@@ -3,6 +3,7 @@ package com.cetc28.tank.net;
 import com.cetc28.tank.Dir;
 import com.cetc28.tank.Group;
 import com.cetc28.tank.Tank;
+import com.cetc28.tank.TankFrame;
 
 import java.io.*;
 import java.util.UUID;
@@ -13,7 +14,7 @@ import java.util.UUID;
  * @Description: com.cetc28.nettystudy.s02
  * @version: 1.0
  */
-public class TankJoinMsg {
+public class TankJoinMsg extends Msg{
     public int x,y;
     public Dir dir;
     public boolean moving;
@@ -63,6 +64,7 @@ public class TankJoinMsg {
 //    }
 
     //将消息转换成为字节数组, 方便后面调用
+    @Override
     public byte[] toBytes(){
         ByteArrayOutputStream baos = null;
         DataOutputStream dos = null;
@@ -111,5 +113,20 @@ public class TankJoinMsg {
                 ", group=" + group +
                 ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public void handle() {
+        //如果这个id就是自己的id或者已经保存在我们的列表中了, 那就不处理
+        if(this.id.equals(TankFrame.INSTANCE.getMainTank().getId()) || TankFrame.INSTANCE.findByUUID(this.id) != null){
+            return;
+        }
+        System.out.println(this);
+        //否则就把这辆坦克加到自己当前列表中
+        Tank t = new Tank(this);
+        TankFrame.INSTANCE.addTank(t);
+
+        //把自己当前的主站坦克加进去
+        Client.INSTANCE.send(new TankJoinMsg(TankFrame.INSTANCE.getMainTank()));
     }
 }

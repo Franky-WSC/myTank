@@ -1,5 +1,7 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.net.Client;
+
 /**
  * @Auther: WSC
  * @Date: 2022/1/17 - 01 - 17 - 20:16
@@ -9,7 +11,9 @@ package com.cetc28.tank;
 public class Main {
     // 这是程序的main函数:入口函数
     public static void main(String[] args) {
-        TankFrame tf = new TankFrame();
+        TankFrame tf = TankFrame.INSTANCE;
+        tf.setVisible(true);
+
 //        //读取配置文件
 //        int tankCount = PropertyMgr.getInt("initTankCount");
 //        //初始化敌方坦克
@@ -17,15 +21,20 @@ public class Main {
 //            tf.tanks.add(new Tank(50+i*100,400,Dir.DOWN, Group.BAD, tf));
 //        }
 
-        new Thread(()->new Audio("audio/war1.wav").loop()).start();
+//        new Thread(()->new Audio("audio/war1.wav").loop()).start();
 
-        while (true){
-            try {
-                Thread.sleep(50);
+        new Thread(()->{
+            while (true){
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 tf.repaint();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
-        }
+        }).start();
+
+//        Client c = new Client();
+        Client.INSTANCE.connect();
     }
 }
