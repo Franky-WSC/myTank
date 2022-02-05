@@ -1,15 +1,11 @@
 package com.cetc28.tank.net;
 
-import com.cetc28.tank.Tank;
 import com.cetc28.tank.TankFrame;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.ReferenceCountUtil;
 
 /**
  * @Auther: WSC
@@ -78,15 +74,16 @@ class ClientChannelInitializer extends ChannelInitializer<SocketChannel> {
         ServerFrame.INSTANCE.updateClientMsg("initChannel的SocketChannel: " + ch);
         //添加pipeline(责任链模式) 一般业务逻辑处理加到最后 编码解码等处理加到前面
         ch.pipeline()
-                .addLast(new TankJoinMsgEncoder())//自定义协议的编码处理
-                .addLast(new TankJoinMsgDecoder())//自定义协议的解码处理
+                .addLast(new MsgEncoder())//自定义协议的编码处理
+                .addLast(new MsgDecoder())//自定义协议的解码处理
                 .addLast(new ClientHandler());//channel消息io的处理
     }
 }
 
-class ClientHandler extends SimpleChannelInboundHandler<TankJoinMsg>{
+class ClientHandler extends SimpleChannelInboundHandler<Msg>{
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, TankJoinMsg msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Msg msg) throws Exception {
+        System.out.println(msg);
         msg.handle();
     }
 

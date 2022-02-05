@@ -44,6 +44,8 @@ public class Server {
                             //给当前连接进的channel添加责任处理器: 一般业务逻辑处理加到最后 编码解码等处理加到前面
                             ChannelPipeline cp = ch.pipeline();
                             cp//.addLast(new TankMsgDecoder())
+                                    .addLast(new MsgEncoder())
+                                    .addLast(new MsgDecoder())
                                     .addLast(new MyServerHandler());
                         }
                     })
@@ -73,6 +75,7 @@ class MyServerHandler extends ChannelInboundHandlerAdapter{
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ServerFrame.INSTANCE.updateClientMsg(msg.toString());
         Server.clients.writeAndFlush(msg);
 
 //        ByteBuf buf = (ByteBuf) msg;

@@ -1,5 +1,9 @@
 package com.cetc28.tank;
 
+import com.cetc28.tank.net.Client;
+import com.cetc28.tank.net.TankStartMovingMsg;
+import com.cetc28.tank.net.TankStopMsg;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -115,12 +119,15 @@ public class TankFrame extends Frame {
         private void setMainTankDir() {
             if(!bL && !bR && !bU && !bD){
                 myTank.setbMoving(false);
+                Client.INSTANCE.send(new TankStopMsg(getMainTank()));
             }else{
                 myTank.setbMoving(true);
                 if(bL) myTank.setDir(Dir.LEFT);
                 if(bR) myTank.setDir(Dir.RIGHT);
                 if(bU) myTank.setDir(Dir.UP);
                 if(bD) myTank.setDir(Dir.DOWN);
+                //发出坦克移动的消息
+                Client.INSTANCE.send(new TankStartMovingMsg(getMainTank()));
             }
         }
     }

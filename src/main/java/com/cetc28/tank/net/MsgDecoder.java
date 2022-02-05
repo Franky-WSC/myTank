@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: com.cetc28.nettystudy.s02
  * @version: 1.0
  */
-public class TankJoinMsgDecoder extends ByteToMessageDecoder {
+public class MsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         //处理tcp拆包 粘包的问题: 需要知道消息有多长
@@ -34,14 +34,22 @@ public class TankJoinMsgDecoder extends ByteToMessageDecoder {
         byte[] bytes = new byte[length];
         in.readBytes(bytes);
 
+        Msg msg = null;
+
         switch (msgType){
             case TankJoin:
-                TankJoinMsg msg = new TankJoinMsg();
-                msg.parse(bytes);
-                out.add(msg);
+                msg = new TankJoinMsg();
+                break;
+            case TankStartMoving:
+                msg = new TankStartMovingMsg();
+                break;
+            case TankStop:
+                msg = new TankStopMsg();
                 break;
             default:
                 break;
         }
+        msg.parse(bytes);
+        out.add(msg);
     }
 }
