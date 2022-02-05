@@ -43,25 +43,26 @@ public class TankJoinMsg extends Msg{
         this.id = id;
     }
 
-//    public void parse(byte[] bytes){
-//        DataInputStream dis = new DataInputStream(new ByteArrayInputStream());
-//        try {
-//            this.x = dis.readInt();
-//            this.y = dis.readInt();
-//            this.dir = Dir.values()[dis.readInt()];
-//            this.moving = dis.readBoolean();
-//            this.group = Group.values()[dis.readInt()];
-//            this.id = new UUID(dis.readLong(),dis.readLong());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }finally{
-//            try {
-//                dis.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+    @Override
+    public void parse(byte[] bytes){
+        DataInputStream dis = new DataInputStream(new ByteArrayInputStream(bytes));
+        try {
+            this.x = dis.readInt();
+            this.y = dis.readInt();
+            this.dir = Dir.values()[dis.readInt()];
+            this.moving = dis.readBoolean();
+            this.group = Group.values()[dis.readInt()];
+            this.id = new UUID(dis.readLong(),dis.readLong());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                dis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     //将消息转换成为字节数组, 方便后面调用
     @Override
@@ -128,5 +129,10 @@ public class TankJoinMsg extends Msg{
 
         //把自己当前的主站坦克加进去
         Client.INSTANCE.send(new TankJoinMsg(TankFrame.INSTANCE.getMainTank()));
+    }
+
+    @Override
+    public MsgType getMsgType() {
+        return MsgType.TankJoin;
     }
 }

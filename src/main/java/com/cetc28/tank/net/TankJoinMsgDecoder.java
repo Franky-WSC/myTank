@@ -1,13 +1,10 @@
 package com.cetc28.tank.net;
 
-import com.cetc28.tank.Dir;
-import com.cetc28.tank.Group;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @Auther: WSC
@@ -19,21 +16,32 @@ public class TankJoinMsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
         //处理tcp拆包 粘包的问题: 需要知道消息有多长
-        //TankJoinMsg: x4 + y4 + dir4 + moving1 + group4 + id16 = 33
-        //写过来至少33个字节, 因此必须读完33个字节在处理
-        if(in.readableBytes() < 33){//TCP 拆包 粘包
+        //消息类型4 + 消息长度4
+        if(in.readableBytes() < 8){//TCP 拆包 粘包
             return;
         }
 
-        TankJoinMsg msg = new TankJoinMsg();
+        in.markReaderIndex();//标记ByteBuf中读到哪里了
 
-        msg.x = in.readInt();
-        msg.y = in.readInt();
-        msg.dir = Dir.values()[in.readInt()];
-        msg.moving = in.readBoolean();
-        msg.group = Group.values()[in.readInt()];
-        msg.id = new UUID(in.readLong(), in.readLong());
+        MsgType msgType = MsgType.values()[in.readInt()];//消息类型
+        int length = in.readInt();//消息长度
 
-        out.add(msg);
+        if(in.readableBytes() < length){//如果接着读取不够消息长度
+            in.resetReaderIndex();//重设读取位置标记
+            return;
+        }
+
+        byte[] bytes = new byte[length];
+        in.readBytes(bytes);
+
+        switch (msgType){
+            case TankJoin:
+                TankJoinMsg msg = new TankJoinMsg();
+                msg.parse(bytes);
+                out.add(msg);
+                break;
+            default:
+                break;
+        }
     }
 }

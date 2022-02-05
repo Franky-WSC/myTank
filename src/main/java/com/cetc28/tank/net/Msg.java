@@ -11,4 +11,8 @@ public abstract class Msg {
     public abstract void handle();
     //将消息转换成字节数组
     public abstract byte[] toBytes();
+    //将字节数组转换成消息
+    public abstract void parse(byte[] bytes);
+    //获取消息类型
+    public abstract MsgType getMsgType();
 }

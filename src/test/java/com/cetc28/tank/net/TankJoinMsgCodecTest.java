@@ -28,7 +28,13 @@ public class TankJoinMsgCodecTest {
         ch.writeOutbound(msg);
 
         ByteBuf buf = (ByteBuf)ch.readOutbound();
+        MsgType msgType = MsgType.values()[buf.readInt()];//读取消息类型
+        assertEquals(MsgType.TankJoin, msgType);//消息类型是否相同
 
+        int length = buf.readInt();//读取消息长度
+        assertEquals(33,length);//消息长度是否相同
+
+        //读取字节数组的内容
         int x = buf.readInt();
         int y = buf.readInt();
         int dirOrdinal = buf.readInt();
@@ -38,6 +44,7 @@ public class TankJoinMsgCodecTest {
         Group g = Group.values()[groupOrdinal];
         UUID uuid = new UUID(buf.readLong(),buf.readLong());
 
+        //字节数组内容是否相同
         assertEquals(5,x);
         assertEquals(10,y);
         assertEquals(Dir.DOWN,dir);
@@ -56,7 +63,10 @@ public class TankJoinMsgCodecTest {
                 .addLast(new TankJoinMsgDecoder());
 
         ByteBuf buf = Unpooled.buffer();
-        buf.writeBytes(msg.toBytes());
+        buf.writeInt(MsgType.TankJoin.ordinal());
+        byte[] bytes = msg.toBytes();
+        buf.writeInt(bytes.length);
+        buf.writeBytes(bytes);
 
         ch.writeInbound(buf.duplicate());
 
